@@ -11,7 +11,8 @@ exports.thisSchema = {
 		type: String,
 		required: true,
 		searchable: true,
-		sortable: true
+		sortable: true,
+		unique:true
 	},
 	owner: {
 		type: Schema.Types.ObjectId,
@@ -47,7 +48,7 @@ exports.thisStatics = {
 	async check(key){
 		return this.find({key}).exec()
 			.then((result)=>{
-				if(result){
+				if(result && result.length > 0){
 					return true;
 				}else{
 					return false;
