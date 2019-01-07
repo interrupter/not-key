@@ -33,7 +33,7 @@ exports.thisSchema = {
 	},
 	expiredAt: {
 		type: Date,
-		required: true
+		required: false
 	},
 	updatedAt: {
 		type: Date,
