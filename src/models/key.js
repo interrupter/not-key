@@ -1,5 +1,5 @@
 const Schema = require('mongoose').Schema;
-
+const uuidv4	=	require('uuidv4');
 exports.thisModelName = 'Key';
 exports.enrich = {
 	versioning: false,
@@ -7,6 +7,13 @@ exports.enrich = {
 };
 
 exports.thisSchema = {
+	title:{
+		type: String,
+		required: false,
+		searchable: true,
+		sortable: true,
+		default: ''
+	},
 	key: {
 		type: String,
 		required: true,
@@ -55,4 +62,19 @@ exports.thisStatics = {
 				}
 			});
 	},
+	async getAllActive(){
+		return this.find({
+			$or: [
+				{
+					'expiredAt':{
+						$exists: true,
+						$gt:	new Date().toISOString()
+					}
+				},
+				{
+					'expiredAt':{$exists:false}
+				}
+			]
+		}).exec();
+	}
 };
