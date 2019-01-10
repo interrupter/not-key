@@ -16,25 +16,27 @@ class ncKey extends notFramework.CRUDController {
 		this.setOptions('views', {
 			default:{
 				renderFromURL: false,
-				common: false,
-				prefix: 'form-',
 				postfix: '',
+				name: 'content-list',
+				common: false
 			},
 			create: {
 				preload: {},
+				prefix: 'form-',
+				postfix: '',
 				action: 'create',
 				renderFromURL: false,
-				name:'form-edit',
-				prefix: 'form-',
+				name:'content-edit',
 				targetQuery: '#form-place',
 				helpers: formHelpers
 			},
 			update: {
 				preload: {},
+				postfix: '',
+				prefix: 'form-',
 				action: 'update',
 				renderFromURL: false,
-				name:'form-edit',
-				prefix: 'form-',
+				name:'content-edit',
 				targetQuery: '#form-place',
 				helpers: formHelpers
 			},
@@ -46,21 +48,25 @@ class ncKey extends notFramework.CRUDController {
 					createURL: [this.getModelURL(),'create'].join('/')
 				},
 				targetQuery: '#table-place',
-				prefix: 'form-',
+				prefix: 'content-',
 				postfix: '',
 				endless: false,
 				renderFromURL: false,
-				name: 'list',
 				common: false,
 				preload: {},
 				fields: [{
-					path: ':id',
-					title: 'ID',
+					path: ':title',
+					title: 'Title',
+					searchable: true,
+					sortable: true
+				},{
+					path: ':key',
+					title: 'KEY',
 					searchable: true,
 					sortable: true
 				}, {
-					path: ':value',
-					title: 'Value',
+					path: ':expiredAt',
+					title: 'Valid till',
 					sortable: true,
 					searchable: true
 				}, {
@@ -94,9 +100,9 @@ class ncKey extends notFramework.CRUDController {
 	initItem() {
 		let newRecord = this.make[this.getModuleName()]({
 			'_id': null,
-			key: this.getOptions('names.single'),
-			value: '',
-			active: true
+			key: '',
+			title: 'Ключ',
+			crate: JSON.stringify({})
 		});
 		return newRecord;
 	}

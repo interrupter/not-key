@@ -32,7 +32,8 @@ exports.thisSchema = {
 	},
 	crate:{
 		type: Schema.Types.Mixed,
-		required: true
+		required: true,
+		default: {}
 	},
 	createdAt: {
 		type: Date,
@@ -68,7 +69,7 @@ exports.thisStatics = {
 				{
 					'expiredAt':{
 						$exists: true,
-						$gt:	new Date().toISOString()
+						$gt:	new Date()
 					}
 				},
 				{
