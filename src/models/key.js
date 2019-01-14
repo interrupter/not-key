@@ -1,5 +1,5 @@
 const Schema = require('mongoose').Schema;
-const uuidv4	=	require('uuidv4');
+
 exports.thisModelName = 'Key';
 exports.enrich = {
 	versioning: false,
@@ -73,7 +73,9 @@ exports.thisStatics = {
 					}
 				},
 				{
-					'expiredAt':{$exists:false}
+					'expiredAt':{
+						$exists:false
+					}
 				}
 			]
 		}).exec();

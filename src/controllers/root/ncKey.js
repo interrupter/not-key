@@ -76,10 +76,12 @@ class ncKey extends notFramework.CRUDController {
 						return {
 							links:[
 								{
+									url: [this.getModelURL(), value, 'prolongForMonth'].join('/'),
+									title: 'Продлить на месяц'
+								},{
 									url: [this.getModelURL(), value, 'update'].join('/'),
 									title: 'Изменить'
-								},
-								{
+								},{
 									url: [this.getModelURL(), value, 'delete'].join('/'),
 									title: 'Удалить'
 								}
@@ -98,10 +100,13 @@ class ncKey extends notFramework.CRUDController {
 		return this;
 	}
 	initItem() {
+		let t = new Date();
+		t.setMonth(t.getMonth() + 1);
 		let newRecord = this.make[this.getModuleName()]({
 			'_id': null,
 			key: '',
 			title: 'Ключ',
+			expiredAt: t.toISOString(),
 			crate: JSON.stringify({})
 		});
 		return newRecord;

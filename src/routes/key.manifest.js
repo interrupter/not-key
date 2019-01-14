@@ -59,6 +59,17 @@ module.exports = {
 				]
 			}
 		},
+		collect:{
+			method: 'PUT',
+			postFix: '/:actionName',
+			isArray: false,
+			data: ['record'],
+			rules:[
+				{
+					auth: false
+				}
+			]
+		},
 		update:{
 			method: 'POST',
 			isArray: false,
@@ -105,6 +116,15 @@ module.exports = {
 			isArray: true,
 			postFix: '/:actionName',
 			data: [],
+			rules: [{
+				auth: 	true,
+				admin: 	true
+			}]
+		},
+		delete: {
+			method: 'DELETE',
+			postFix: '/:record[_id]',
+			isArray: false,
 			rules: [{
 				auth: 	true,
 				admin: 	true

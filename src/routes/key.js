@@ -1,5 +1,10 @@
 const uuidv4	=	require('uuidv4');
 const App	=	require('not-node').Application;
+const ERR_INVALID_KEY = 'Invalid key';
+const ERR_EMPTY_KEY_NO_CONSUMERS = 'Key is empty, no consumers';
+const ERR_EMPTY_KEY = 'Key is empty';
+const ERR_NO_KEY = 'No key';
+const ERRS = [ERR_INVALID_KEY,ERR_EMPTY_KEY_NO_CONSUMERS,ERR_EMPTY_KEY,ERR_NO_KEY];
 const
 	UserActions = [],
 	AdminActions = [
@@ -45,7 +50,7 @@ module.exports = {
 				item = item.toObject();
 				item.crate = JSON.stringify(item.crate);
 				if(item.expiredAt instanceof Date){
-					item.expiredAt = item.expiredAt.toISOString();
+					item.expiredAt = item.expiredAt.toISOString().splice('T')[0];
 				}
 				res.status(200).json(item);
 			})
@@ -70,6 +75,59 @@ module.exports = {
 			.catch((err)=>{
 				res.status(500).json(err);
 			});
+	},
+	async collect(req, res){
+		let Key = App.getModel('Key');
+		if (typeof req.body.key !== 'undefined' && req.body.key !== null){
+			Key.check(req.body.key.toString())
+				.then((result)=>{
+					if(result){
+						console.log(`key ${ req.body.key} exists`);
+						return true;
+					}else{
+						throw new Error(ERR_INVALID_KEY);
+					}
+				})
+				.then(async()=>{
+					try{
+						let key = await Key.findOne({key: req.body.key}).exec();
+						return key;
+					}catch(e){
+						throw e;
+					}
+				})
+				.then(async(key)=>{
+					if(key){
+						if(key.crate && key.crate.consumers){
+							let list = [];
+							for(let t in key.crate.consumers){
+								if(typeof t !== 'undefined'){
+									let model = App.getModel(t);
+									let statMethod = model[key.crate.consumers[t]];
+									list.push(statMethod(req.body, key));
+								}
+							}
+							let results = await Promise.all(list);
+							res.status(200).json({results});
+						}else{
+							throw new Error(ERR_EMPTY_KEY_NO_CONSUMERS);
+						}
+					}else{
+						throw new Error(ERR_EMPTY_KEY);
+					}
+				})
+				.catch((err)=>{
+					if (ERRS.indexOf(err.message) > -1){
+						res.status(404).json({
+							message: err.message
+						});
+					}else{
+						res.status(500).json({});
+					}
+				});
+		}else{
+			res.status(404).json({message: ERR_NO_KEY});
+		}
 	}
 };
 
