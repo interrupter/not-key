@@ -95,7 +95,7 @@ module.exports = {
 			data: [],
 			rules: [{
 				auth: 	true,
-				admin:true
+				admin:	true
 			}]
 		},
 		listAndCount:{

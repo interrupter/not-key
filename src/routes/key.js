@@ -50,7 +50,10 @@ module.exports = {
 				item = item.toObject();
 				item.crate = JSON.stringify(item.crate);
 				if(item.expiredAt instanceof Date){
-					item.expiredAt = item.expiredAt.toISOString().splice('T')[0];
+					if(item.expiredAt.toISOString){
+						let exp = item.expiredAt.toISOString();
+						item.expiredAt = exp.split('T')[0];
+					}
 				}
 				res.status(200).json(item);
 			})
