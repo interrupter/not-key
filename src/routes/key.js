@@ -1,5 +1,5 @@
-const uuidv4	=	require('uuidv4');
-const App	=	require('not-node').Application;
+const uuidv4  =  require('uuidv4');
+const App  =  require('not-node').Application;
 const ERR_INVALID_KEY = 'Invalid key';
 const ERR_EMPTY_KEY_NO_CONSUMERS = 'Key is empty, no consumers';
 const ERR_EMPTY_KEY = 'Key is empty';
@@ -17,7 +17,7 @@ const
 	MODEL_NAME = 'Key',
 	MODEL_OPTIONS = {
 		MODEL_NAME,
-		MODEL_TITLE: 	'Ключ',
+		MODEL_TITLE:   'Ключ',
 		before:{
 			create(args){
 				return new Promise((resolve, reject)=>{
@@ -81,11 +81,12 @@ module.exports = {
 	},
 	async collect(req, res){
 		let Key = App.getModel('Key');
-		if (typeof req.body.key !== 'undefined' && req.body.key !== null){
+		if (typeof req.body.key !== 'undefined' && req.body.key !== null &&
+     typeof req.body.report !== 'undefined' && req.body.report !== null &&
+   typeof req.body.type !== 'undefined' && req.body.type !== null){
 			Key.check(req.body.key.toString())
 				.then((result)=>{
 					if(result){
-						console.log(`key ${ req.body.key} exists`);
 						return true;
 					}else{
 						throw new Error(ERR_INVALID_KEY);
@@ -107,7 +108,7 @@ module.exports = {
 								if(typeof t !== 'undefined'){
 									let model = App.getModel(t);
 									let statMethod = model[key.crate.consumers[t]];
-									list.push(statMethod(req.body, key));
+									list.push(statMethod(req.body.report, key, req.body.type));
 								}
 							}
 							let results = await Promise.all(list);
