@@ -67,6 +67,12 @@ module.exports = {
 			rules:[
 				{
 					auth: false
+				},
+				{
+					auth: true
+				},
+				{
+					admin: true
 				}
 			]
 		},
