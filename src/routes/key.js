@@ -4,7 +4,8 @@ const ERR_INVALID_KEY = 'Invalid key';
 const ERR_EMPTY_KEY_NO_CONSUMERS = 'Key is empty, no consumers';
 const ERR_EMPTY_KEY = 'Key is empty';
 const ERR_NO_KEY = 'No key';
-const ERRS = [ERR_INVALID_KEY,ERR_EMPTY_KEY_NO_CONSUMERS,ERR_EMPTY_KEY,ERR_NO_KEY];
+const ERR_NO_COLLECTOR_MODEL = 'Collector model not exists';
+const ERRS = [ERR_INVALID_KEY,ERR_EMPTY_KEY_NO_CONSUMERS,ERR_EMPTY_KEY,ERR_NO_KEY,ERR_NO_COLLECTOR_MODEL];
 const
 	UserActions = [],
 	AdminActions = [
@@ -101,23 +102,31 @@ module.exports = {
 					}
 				})
 				.then(async(key)=>{
-					if(key){
-						if(key.crate && key.crate.consumers){
-							let list = [];
-							for(let t in key.crate.consumers){
-								if(typeof t !== 'undefined'){
-									let model = App.getModel(t);
-									let statMethod = model[key.crate.consumers[t]];
-									list.push(statMethod(req.body.report, key, req.body.type));
+					try{
+						if(key){
+							if(key.crate && key.crate.consumers){
+								let list = [];
+								for(let t in key.crate.consumers){
+									if(typeof t !== 'undefined'){
+										let model = App.getModel(t);
+										if(model){
+											let statMethod = model[key.crate.consumers[t]];
+											list.push(statMethod(req.body.report, key, req.body.type));
+										}else{
+											App.logger.error(new Error(ERR_NO_COLLECTOR_MODEL));
+										}
+									}
 								}
+								let results = await Promise.all(list);
+								res.status(200).json({results});
+							}else{
+								throw new Error(ERR_EMPTY_KEY_NO_CONSUMERS);
 							}
-							let results = await Promise.all(list);
-							res.status(200).json({results});
 						}else{
-							throw new Error(ERR_EMPTY_KEY_NO_CONSUMERS);
+							throw new Error(ERR_EMPTY_KEY);
 						}
-					}else{
-						throw new Error(ERR_EMPTY_KEY);
+					}catch(e){
+						throw e;
 					}
 				})
 				.catch((err)=>{
@@ -134,6 +143,5 @@ module.exports = {
 		}
 	}
 };
-
 modMeta.extend(modMeta.Route, module.exports, AdminActions, MODEL_OPTIONS, '_');
 modMeta.extend(modMeta.Route, module.exports, UserActions, MODEL_OPTIONS);
