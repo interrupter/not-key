@@ -1,4 +1,4 @@
-const uuidv4  =  require('uuidv4');
+const uuidv4  =  require('uuid').v4;
 const App  =  require('not-node').Application;
 const ERR_INVALID_KEY = 'Invalid key';
 const ERR_EMPTY_KEY_NO_CONSUMERS = 'Key is empty, no consumers';
