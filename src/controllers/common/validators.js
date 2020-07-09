@@ -11,7 +11,9 @@ export default {
 	},
 	form:{
 		edit(){
-			return [];
+			return {
+				clean: true
+			};
 		}
 	}
 };
