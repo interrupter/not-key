@@ -1,43 +1,8 @@
+const FIELDS = require('../common/fields.js');
 module.exports = {
 	model: 'key',
 	url: '/api/:modelName',
-	fields: {
-		title: {
-			type: 'textfield',
-			placeholder: 'title',
-			label: 'Title'
-		},
-		key: {
-			type: 'textfield',
-			placeholder: 'key field leave empty to auto gen uuidv4',
-			label: 'Key'
-		},
-		crate: {
-			type: 'textarea',
-			placeholder: 'Valid JSON data or leave empty, data associated with this key',
-			label: 'Crate'
-		},
-		createdAt: {
-			type: 'date',
-			disabled: true,
-			placeholder: 'date',
-			label: 'Created at'
-		},
-		updatedAt: {
-			type: 'date',
-			disabled: true,
-			placeholder: 'date',
-			label: 'Updated at'
-		},
-		expiredAt: {
-			type: 'date',
-			placeholder: 'date',
-			label: 'Expired at'
-		},
-		submit: {
-			type: 'submit'
-		}
-	},
+	fields: FIELDS,
 	actions: {
 		create:{
 			method: 'PUT',
@@ -86,6 +51,7 @@ module.exports = {
 			title: 'Update of a key',
 			fields: {
 				admin: [
+					'_id',
 					'title',
 					'key',
 					'crate',

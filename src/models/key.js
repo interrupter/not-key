@@ -12,40 +12,72 @@ exports.thisSchema = {
 		required: false,
 		searchable: true,
 		sortable: true,
-		default: ''
+		default: '',
+		safe: {
+			update: ['@owner', 'root', 'admin'],
+			read: ['@owner', 'root', 'admin']
+		}
 	},
 	key: {
 		type: String,
 		required: true,
 		searchable: true,
 		sortable: true,
-		unique:true
+		unique:true,
+		safe: {
+			update: ['@owner', 'root', 'admin'],
+			read: ['@owner', 'root', 'admin']
+		}
 	},
 	owner: {
 		type: Schema.Types.ObjectId,
 		refPath: 'ownerModel',
-		required: false
+		required: false,
+		safe: {
+			update: ['@owner', 'root', 'admin'],
+			read: ['@owner', 'root', 'admin']
+		}
 	},
 	ownerModel: {
 		type: String,
-		required: false
+		required: false,
+		safe: {
+			update: ['@owner', 'root', 'admin'],
+			read: ['@owner', 'root', 'admin']
+		}
 	},
 	crate:{
 		type: Schema.Types.Mixed,
 		required: true,
-		default: {}
+		default: {},
+		safe: {
+			update: ['@owner', 'root', 'admin'],
+			read: ['@owner', 'root', 'admin']
+		}
 	},
 	createdAt: {
 		type: Date,
-		default: Date.now
+		default: Date.now,
+		safe: {
+			update: ['@owner', 'root', 'admin'],
+			read: ['@owner', 'root', 'admin']
+		}
 	},
 	expiredAt: {
 		type: Date,
-		required: false
+		required: false,
+		safe: {
+			update: ['@owner', 'root', 'admin'],
+			read: ['@owner', 'root', 'admin']
+		}
 	},
 	updatedAt: {
 		type: Date,
-		default: Date.now
+		default: Date.now,
+		safe: {
+			update: ['@owner', 'root', 'admin'],
+			read: ['@owner', 'root', 'admin']
+		}
 	},
 };
 
