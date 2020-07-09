@@ -1,6 +1,6 @@
 {
 	"name": "not-key",
-	"version": "0.0.21",
+	"version": "0.0.22",
 	"description": "not-* family key management mod",
 	"main": "index.js",
 	"scripts": {

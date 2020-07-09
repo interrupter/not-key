@@ -20,7 +20,7 @@ const
 		MODEL_NAME,
 		MODEL_TITLE:   'Ключ',
 		RESPONSE:{
-			full: [ 'getRaw', 'get']
+			full: ['get']
 		},
 		before:{
 			create(args){
@@ -59,10 +59,14 @@ module.exports = {
 						item.expiredAt = exp.split('T')[0];
 					}
 				}
-				res.status(200).json(item);
+				res.status(200).json({
+						status: 'ok',
+						result: item
+					});
 			})
 			.catch((err)=>{
-				res.status(500).json(err);
+				App.report(err);
+				res.status(500).json({});
 			});
 	},
 	_update(req, res){
