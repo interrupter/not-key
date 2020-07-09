@@ -73,7 +73,8 @@ module.exports = {
       data: [],
       rules: [{
         auth: true,
-        admin: true
+        admin: true,
+        fields: ['_id', 'keyID', 'title', 'key', 'crate', 'expiredAt']
       }]
     },
     getRaw: {
@@ -83,7 +84,8 @@ module.exports = {
       data: [],
       rules: [{
         auth: true,
-        admin: true
+        admin: true,
+        fields: ['_id', 'keyID', 'title', 'key', 'crate', 'expiredAt']
       }]
     },
     delete: {
