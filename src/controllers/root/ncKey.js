@@ -145,7 +145,7 @@ class ncKey extends notFramework.notController {
 				this.ui.details = Form.build({
 					target: this.els.main,
 					manifest,
-					action: 'view',
+					action: 'get',
 					options: {},
 					validators: Validators,
 					data: notFramework.notCommon.stripProxy(res.result)
