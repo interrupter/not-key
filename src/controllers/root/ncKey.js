@@ -140,7 +140,7 @@ class ncKey extends notFramework.notController {
 		let manifest = this.app.getInterfaceManifest()[this.getModuleName()];
 		this.make.key({
 			_id: params[0]
-		}).$get().then((res) => {
+		}).$getRaw().then((res) => {
 			if (res.status === 'ok') {
 				this.ui.details = Form.build({
 					target: this.els.main,
@@ -177,7 +177,7 @@ class ncKey extends notFramework.notController {
 		let manifest = this.app.getInterfaceManifest()[this.getModuleName()];
 		this.make.key({
 			_id: params[0]
-		}).$get().then((res) => {
+		}).$getRaw().then((res) => {
 			if (res.status === 'ok') {
 				this.setBreadcrumbs([{
 					title: `Редактирование данных ${res.result.id}`,
