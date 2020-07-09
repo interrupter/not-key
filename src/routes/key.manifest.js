@@ -44,6 +44,16 @@ module.exports = {
 			title: 'Update of a key',
 			fields: ['_id', 'keyID', 'title', 'key', 'crate', 'expiredAt']
 		},
+		get: {
+			method: 'GET',
+			isArray: false,
+			postFix: '/:record[_id]',
+			data: [],
+			rules: [{
+				auth: 	true,
+				admin:	true
+			}]
+		},
 		getRaw: {
 			method: 'GET',
 			isArray: false,

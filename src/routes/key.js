@@ -19,6 +19,9 @@ const
 	MODEL_OPTIONS = {
 		MODEL_NAME,
 		MODEL_TITLE:   'Ключ',
+		RESPONSE:{
+			full: [ 'getRaw', 'get']
+		},
 		before:{
 			create(args){
 				return new Promise((resolve, reject)=>{
