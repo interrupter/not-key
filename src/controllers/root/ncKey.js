@@ -113,7 +113,6 @@ class ncKey extends notFramework.notController {
 			this.$destroyUI();
 		}
 		let manifest = this.app.getInterfaceManifest()[this.getModuleName()];
-		console.log('form create', manifest);
 		this.ui.create = Form.build({
 			target: this.els.main,
 			manifest,
@@ -146,7 +145,9 @@ class ncKey extends notFramework.notController {
 					target: this.els.main,
 					manifest,
 					action: 'get',
-					options: {},
+					options: {
+						readonly: true
+					},
 					validators: Validators,
 					data: notFramework.notCommon.stripProxy(res.result)
 				});
