@@ -1,4 +1,10 @@
 module.exports = {
+	_id: {
+		component: 'UITextfield',
+		placeholder: '_id',
+		label: '_id',
+		readonly: true
+	},
 	title: {
 		component: 'UITextfield',
 		placeholder: 'title',
