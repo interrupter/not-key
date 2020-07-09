@@ -1,4 +1,5 @@
 const FIELDS = require('../common/fields.js');
+
 module.exports = {
 	model: 'key',
 	url: '/api/:modelName',
@@ -10,19 +11,11 @@ module.exports = {
 			data: ['record'],
 			rules:[
 				{
-					admin: true
+					admin: true,
+					fields: ['title','key','crate','expiredAt']
 				}
 			],
-			title: 'Creation of new key',
-			fields: {
-				admin: [
-					'title',
-					'key',
-					'crate',
-					'expiredAt',
-					'submit'
-				]
-			}
+			title: 'Creation of new key'
 		},
 		collect:{
 			method: 'PUT',
@@ -49,16 +42,7 @@ module.exports = {
 			auth: true,
 			admin: true,
 			title: 'Update of a key',
-			fields: {
-				admin: [
-					'_id',
-					'title',
-					'key',
-					'crate',
-					'expiredAt',
-					'submit'
-				]
-			}
+			fields: ['_id', 'keyID', 'title', 'key', 'crate', 'expiredAt']
 		},
 		getRaw: {
 			method: 'GET',
@@ -75,6 +59,7 @@ module.exports = {
 			isArray: false,
 			postFix: '/:actionName',
 			data: ['pager', 'sorter', 'filter', 'searcher', 'return'],
+			fields: ['_id', 'keyID', 'title', 'key', 'crate', 'expiredAt'],
 			rules: [{
 				auth: 	true,
 				role: 	['admin']
@@ -88,6 +73,7 @@ module.exports = {
 			isArray: true,
 			postFix: '/:actionName',
 			data: [],
+			fields: ['_id', 'title', 'key', 'crate', 'expiredAt'],
 			rules: [{
 				auth: 	true,
 				admin: 	true

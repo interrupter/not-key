@@ -9,6 +9,12 @@ module.exports = {
 		placeholder: 'key field leave empty to auto gen uuidv4',
 		label: 'Key'
 	},
+	keyID: {
+		type: 'UITextfield',
+		placeholder: 'keyID',
+		label: 'KeyID',
+		readonly: true
+	},
 	crate: {
 		type: 'UITextarea',
 		placeholder: 'Valid JSON data or leave empty, data associated with this key',
