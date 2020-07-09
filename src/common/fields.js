@@ -1,39 +1,39 @@
 module.exports = {
 	title: {
-		type: 'UITextfield',
+		component: 'UITextfield',
 		placeholder: 'title',
 		label: 'Title'
 	},
 	key: {
-		type: 'UITextfield',
+		component: 'UITextfield',
 		placeholder: 'key field leave empty to auto gen uuidv4',
 		label: 'Key'
 	},
 	keyID: {
-		type: 'UITextfield',
+		component: 'UITextfield',
 		placeholder: 'keyID',
 		label: 'KeyID',
 		readonly: true
 	},
 	crate: {
-		type: 'UITextarea',
+		component: 'UITextarea',
 		placeholder: 'Valid JSON data or leave empty, data associated with this key',
 		label: 'Crate'
 	},
 	createdAt: {
-		type: 'UIDate',
+		component: 'UIDate',
 		disabled: true,
 		placeholder: 'date',
 		label: 'Created at'
 	},
 	updatedAt: {
-		type: 'UIDate',
+		component: 'UIDate',
 		disabled: true,
 		placeholder: 'date',
 		label: 'Updated at'
 	},
 	expiredAt: {
-		type: 'UIDate',
+		component: 'UIDate',
 		placeholder: 'date',
 		label: 'Expired at'
 	}
