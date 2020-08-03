@@ -9,10 +9,15 @@ let manifest = {
 			},
 		]
 	},
-	menu:[{
-		title: 	'Ключи',
-		url: 	'/key'
-	}]
+	menu:{
+		side: {
+			items: [{
+				section: 'system',
+				title: 	'Ключи',
+				url: 	'/key'
+			}]
+		}
+	}
 };
 
 export {
