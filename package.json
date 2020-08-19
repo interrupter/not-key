@@ -1,6 +1,6 @@
 {
 	"name": "not-key",
-	"version": "0.0.31",
+	"version": "0.0.32",
 	"description": "not-* family key management mod",
 	"main": "index.js",
 	"scripts": {
@@ -27,7 +27,7 @@
 	"homepage": "https://github.com/interrupter/not-key#readme",
 	"dependencies": {
 		"mongoose": "*",
-		"not-bulma": "0.0.18",
+		"not-bulma": "*",
 		"not-meta": "*",
 		"uuid": "*"
 	},
