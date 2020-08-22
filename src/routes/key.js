@@ -20,7 +20,7 @@ const
 		MODEL_NAME,
 		MODEL_TITLE:   'Ключ',
 		RESPONSE:{
-			full: ['get']
+			full: ['get','getRaw','create']
 		},
 		before:{
 			create(args){

@@ -45,7 +45,7 @@ module.exports = {
       method: 'GET',
       isArray: false,
       postFix: '/:actionName',
-      data: ['pager', 'sorter', 'filter', 'searcher', 'return'],
+      data: ['record','pager', 'sorter', 'filter', 'searcher', 'return'],
       fields: ['_id', 'keyID', 'title', 'key', 'crate', 'expiredAt'],
       rules: [{
         auth: true,
@@ -59,7 +59,7 @@ module.exports = {
       method: 'GET',
       isArray: true,
       postFix: '/:actionName',
-      data: [],
+      data: ['record'],
       fields: ['_id', 'title', 'key', 'crate', 'expiredAt'],
       rules: [{
         auth: true,
@@ -70,7 +70,7 @@ module.exports = {
       method: 'GET',
       isArray: false,
       postFix: '/:record[_id]',
-      data: [],
+      data: ['record'],
       rules: [{
         auth: true,
         admin: true,
@@ -81,7 +81,7 @@ module.exports = {
       method: 'GET',
       isArray: false,
       postFix: '/:record[_id]/:actionName',
-      data: [],
+      data: ['record'],
       rules: [{
         auth: true,
         admin: true,
@@ -90,6 +90,7 @@ module.exports = {
     },
     delete: {
       method: 'DELETE',
+      data: ['record'],
       postFix: '/:record[_id]',
       isArray: false,
       rules: [{
