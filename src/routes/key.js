@@ -60,9 +60,9 @@ module.exports = {
 					}
 				}
 				res.status(200).json({
-						status: 'ok',
-						result: item
-					});
+					status: 'ok',
+					result: item
+				});
 			})
 			.catch((err)=>{
 				App.report(err);
@@ -125,7 +125,7 @@ module.exports = {
 									}
 								}
 								let results = await Promise.all(list);
-								res.status(200).json({results});
+								res.status(200).json({status: 'ok', results});
 							}else{
 								throw new Error(ERR_EMPTY_KEY_NO_CONSUMERS);
 							}
