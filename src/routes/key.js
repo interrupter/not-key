@@ -45,6 +45,10 @@ const
 	},
 	modMeta = require('not-meta');
 
+modMeta.extend(modMeta.Route, module.exports, AdminActions, MODEL_OPTIONS, '_');
+modMeta.extend(modMeta.Route, module.exports, UserActions, MODEL_OPTIONS);
+
+
 module.exports = {
 	_getRaw (req, res) {
 		let id = req.params._id,
@@ -121,6 +125,7 @@ module.exports = {
 											list.push(statMethod(req.body.report, key, req.body.type));
 										}else{
 											App.logger.error(new Error(ERR_NO_COLLECTOR_MODEL));
+											App.logger.error(t);
 										}
 									}
 								}
@@ -150,5 +155,3 @@ module.exports = {
 		}
 	}
 };
-modMeta.extend(modMeta.Route, module.exports, AdminActions, MODEL_OPTIONS, '_');
-modMeta.extend(modMeta.Route, module.exports, UserActions, MODEL_OPTIONS);

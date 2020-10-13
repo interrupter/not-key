@@ -91,7 +91,7 @@ class ncKey extends ncCRUD {
 	createDefault() {
 		let t = new Date();
 		t.setMonth(t.getMonth() + 1);
-		let newRecord = this.make[this.getModuleName()]({
+		let newRecord = this.make[this.getModelName()]({
 			'_id': null,
 			key: '',
 			title: LABELS.single,
