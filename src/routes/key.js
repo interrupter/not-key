@@ -47,9 +47,6 @@ try{
 		},
 		modMeta = require('not-meta');
 
-	modMeta.extend(modMeta.Route, module.exports, AdminActions, MODEL_OPTIONS, '_');
-	modMeta.extend(modMeta.Route, module.exports, UserActions, MODEL_OPTIONS);
-
 
 	module.exports = {
 		_getRaw (req, res) {
@@ -157,6 +154,8 @@ try{
 			}
 		}
 	};
+	modMeta.extend(modMeta.Route, module.exports, AdminActions, MODEL_OPTIONS, '_');
+	modMeta.extend(modMeta.Route, module.exports, UserActions, MODEL_OPTIONS);
 
 }catch(e){
 	Log.error(e);
