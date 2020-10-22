@@ -1,88 +1,24 @@
-const Schema = require('mongoose').Schema;
+const initFields = require('not-node').Fields.initFields;
 
-exports.thisModelName = 'Key';
+const MODEL_NAME = 'Key';
+const FIELDS = [
+	['title', { default: ''}, 'title'],
+	'key',
+	'owner',
+	'ownerModel',
+	['crate', {}, 'requiredObject'],
+	'createdAt',
+	'expiredAt',
+	'updatedAt'
+];
+
 exports.enrich = {
 	versioning: false,
 	increment: true
 };
 
-exports.thisSchema = {
-	title:{
-		type: String,
-		required: false,
-		searchable: true,
-		sortable: true,
-		default: '',
-		safe: {
-			update: ['@owner', 'root', 'admin'],
-			read: ['@owner', 'root', 'admin']
-		}
-	},
-	key: {
-		type: String,
-		required: true,
-		searchable: true,
-		sortable: true,
-		unique:true,
-		safe: {
-			update: ['@owner', 'root', 'admin'],
-			read: ['@owner', 'root', 'admin']
-		}
-	},
-	owner: {
-		type: Schema.Types.ObjectId,
-		refPath: 'ownerModel',
-		required: false,
-		safe: {
-			update: ['@owner', 'root', 'admin'],
-			read: ['@owner', 'root', 'admin']
-		}
-	},
-	ownerModel: {
-		type: String,
-		required: false,
-		safe: {
-			update: ['@owner', 'root', 'admin'],
-			read: ['@owner', 'root', 'admin']
-		}
-	},
-	crate:{
-		type: Schema.Types.Mixed,
-		required: true,
-		default: {},
-		safe: {
-			update: ['@owner', 'root', 'admin'],
-			read: ['@owner', 'root', 'admin']
-		}
-	},
-	createdAt: {
-		type: Date,
-		default: Date.now,
-		safe: {
-			update: ['@owner', 'root', 'admin'],
-			read: ['@owner', 'root', 'admin']
-		}
-	},
-	expiredAt: {
-		type: Date,
-		required: false,
-		safe: {
-			update: ['@owner', 'root', 'admin'],
-			read: ['@owner', 'root', 'admin']
-		}
-	},
-	updatedAt: {
-		type: Date,
-		default: Date.now,
-		safe: {
-			update: ['@owner', 'root', 'admin'],
-			read: ['@owner', 'root', 'admin']
-		}
-	},
-};
-
-exports.thisVirtuals = {};
-exports.thisMethods = {};
+exports.thisModelName = MODEL_NAME;
+exports.thisSchema = initFields(FIELDS, 'model');
 
 exports.thisStatics = {
 	async check(key){
