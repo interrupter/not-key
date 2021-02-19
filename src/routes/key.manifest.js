@@ -28,7 +28,7 @@ try {
 				isArray: false,
 				data: ['record'],
 				rules: [{
-					admin: true,
+					root: true,
 					fields: ['title', 'key', 'crate', 'expiredAt']
 				}],
 				title: 'Creation of new key'
@@ -45,7 +45,7 @@ try {
 					auth: true
 				},
 				{
-					admin: true
+					root: true
 				}
 				]
 			},
@@ -54,8 +54,10 @@ try {
 				isArray: false,
 				postFix: '/:record[_id]/update',
 				data: ['record'],
-				auth: true,
-				admin: true,
+				rules: [{
+					auth: true,
+					root: true,
+				}],
 				title: 'Update of a key',
 				fields: ['_id', 'keyID', 'title', 'key', 'crate', 'expiredAt']
 			},
@@ -70,7 +72,7 @@ try {
 					role: ['admin']
 				}, {
 					auth: true,
-					admin: true
+					root: true
 				}]
 			},
 			latest: {
@@ -81,7 +83,7 @@ try {
 				fields: ['_id', 'title', 'key', 'crate', 'expiredAt'],
 				rules: [{
 					auth: true,
-					admin: true
+					root: true
 				}]
 			},
 			get: {
@@ -91,7 +93,7 @@ try {
 				data: ['record'],
 				rules: [{
 					auth: true,
-					admin: true,
+					root: true,
 					fields: ['_id', 'keyID', 'title', 'key', 'crate', 'expiredAt']
 				}]
 			},
@@ -102,7 +104,7 @@ try {
 				data: ['record'],
 				rules: [{
 					auth: true,
-					admin: true,
+					root: true,
 					fields: ['_id', 'keyID', 'title', 'key', 'crate', 'expiredAt']
 				}]
 			},
@@ -113,12 +115,11 @@ try {
 				isArray: false,
 				rules: [{
 					auth: true,
-					admin: true
+					root: true
 				}]
 			}
 		}
 	};
-
 } catch (e) {
 	Log.error(e);
 }
