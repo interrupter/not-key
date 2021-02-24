@@ -14,7 +14,8 @@ try {
   		    placeholder: 'Valid JSON data or leave empty, data associated with this key',
 					label: 'Crate'
 				}
-			]
+			],
+			['expiredAt', { readonly: false }, 'expiredAt']
   	]
 	);
 
