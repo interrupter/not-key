@@ -1,17 +1,15 @@
 <script>
   import {UICommon} from 'not-bulma';
   import {
-    onMount,
     createEventDispatcher
   } from 'svelte';
   let dispatch = createEventDispatcher();
 
   export let inputStarted = false;
-  export let value        = [];
+  export let value        = '';
   export let placeholder   = 'List of urls';
   export let fieldname     = 'list-of-urls';
   export let rows = 10;
-  export let textVersion  = '';
   export let required = true;
   export let readonly = false;
   export let valid = true;
@@ -20,11 +18,6 @@
   export let formErrors = false;
   export let formLevelError = false;
 
-  onMount(()=>{
-    textVersion = value.join("\n");
-  });
-
-  $: value = textVersion.split("\n");
   $: allErrors = [].concat(errors?errors:[], formErrors?formErrors:[]);
   $: helper = allErrors?allErrors.join(', '): placeholder;
   $: invalid = ((valid===false) || (formLevelError));
@@ -33,7 +26,7 @@
   function onBlur(ev){
     let data = {
       field: fieldname,
-      value: ev.currentTarget.value.split("\n")
+      value: ev.currentTarget.value
     };
     inputStarted = true;
     dispatch('change', data);
@@ -43,7 +36,7 @@
   function onInput(ev){
     let data = {
       field: fieldname,
-      value: ev.currentTarget.value.split("\n")
+      value: ev.currentTarget.value
     };
     inputStarted = true;
     dispatch('change', data);
@@ -55,7 +48,7 @@
   <textarea
     id="form-field-listOfUrls-{fieldname}"
     name={fieldname}
-    bind:value={textVersion}
+    bind:value={value}
     class="textarea {validationClasses}"
     {readonly}
     disabled={readonly}

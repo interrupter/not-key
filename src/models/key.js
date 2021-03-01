@@ -4,7 +4,7 @@ const MODEL_NAME = 'Key';
 const FIELDS = [
 	['title', { default: ''}, 'title'],
 	'key',
-	['origins', {}, 'ListOfUrls'],
+	['origins', {}, 'listOfUrls'],
 	'owner',
 	'ownerModel',
 	['crate', {}, 'requiredObject'],
