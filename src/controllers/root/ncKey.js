@@ -1,5 +1,5 @@
-import Validators from '../common/validators.js';
-import UIListOfUrls from '../common/list.of.urls.svelte';
+import Validators from '../lib/validators.js';
+import UIListOfUrls from '../lib/list.of.urls.svelte';
 import {
 	ncCRUD,
 	Form

@@ -4,6 +4,7 @@ export default {
 		title(){return [];},
 		key(){return [];},
 		keyID(){return [];},
+		origins(){return [];},
 		crate(){return [];},
 		createdAt(){return [];},
 		updatedAt(){return [];},
