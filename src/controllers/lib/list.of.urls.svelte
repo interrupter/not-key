@@ -33,7 +33,7 @@
   function onBlur(ev){
     let data = {
       field: fieldname,
-      value: ev.currentTarget.value
+      value: ev.currentTarget.value.split("\n")
     };
     inputStarted = true;
     dispatch('change', data);
@@ -43,7 +43,7 @@
   function onInput(ev){
     let data = {
       field: fieldname,
-      value: ev.currentTarget.value
+      value: ev.currentTarget.value.split("\n")
     };
     inputStarted = true;
     dispatch('change', data);
