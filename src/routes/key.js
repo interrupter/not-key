@@ -139,7 +139,7 @@ try {
           typeof req.body.report !== 'undefined' && req.body.report !== null &&
           typeof req.body.type !== 'undefined' && req.body.type !== null
         ) {
-          let key = await Key.findActiveByKeyOrOrigin(req.body.key, origin(req.headers.referrer));
+          let key = await Key.findActiveByKeyOrOrigin(req.body.key, origin(req.headers.origin));
           if (!key) {
             throw new Error(ERR_INVALID_KEY_OR_ORIGIN);
           }

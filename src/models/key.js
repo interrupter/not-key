@@ -46,7 +46,7 @@ exports.thisStatics = {
 				}
 			}
 		];
-		if(key && origin){
+		if(key || origin){
 			if(key){
 				return this.findOne({
 					//должен быть с ключом
@@ -57,7 +57,7 @@ exports.thisStatics = {
 				}).exec();
 			}else if (origin && typeof origin === 'string'){
 				origin = origin.trim();
-				if (origin > 3){
+				if (origin.length > 3){
 					return this.findOne({
 						//должен быть с сточником в списке разрешенных
 						origins: origin,
