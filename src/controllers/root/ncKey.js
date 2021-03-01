@@ -1,6 +1,8 @@
 import Validators from '../common/validators.js';
+import UIListOfUrls from '../common/list.of.urls.svelte';
 import {
-	ncCRUD
+	ncCRUD,
+	Form
 } from 'not-bulma';
 
 
@@ -12,6 +14,7 @@ const LABELS = {
 	single: 'Ключ',
 };
 
+Form.addComponent('UIListOfUrls', UIListOfUrls);
 
 class ncKey extends ncCRUD {
 	constructor(app, params) {

@@ -1,6 +1,6 @@
 {
 	"name": "not-key",
-	"version": "0.0.39",
+	"version": "0.0.40",
 	"description": "not-* family key management mod",
 	"main": "index.js",
 	"scripts": {
@@ -29,15 +29,16 @@
 		"mongoose": "*",
 		"not-bulma": "*",
 		"not-meta": "*",
+		"original": "^1.0.2",
 		"uuid": "*"
 	},
 	"devDependencies": {
-		"eslint": "*",
-		"nyc": "*",
 		"chai": "*",
-		"mocha": "*",
+		"eslint": "*",
 		"ink-docstrap": "^1.3.2",
-		"jsdoc": "^3.6.6"
+		"jsdoc": "^3.6.6",
+		"mocha": "*",
+		"nyc": "*"
 	},
 	"nyc": {
 		"include": [

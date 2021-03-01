@@ -4,19 +4,23 @@ try {
 	const initFromSchema = require('not-node').Fields.fromSchema;
 	const modelSchema = require('../models/key').thisSchema;
 	const FIELDS = initFromSchema(modelSchema,
-  	[
-  		['_id', {}, '_id'],
-  		['keyID', {}, 'ID'],
+		[
+			['_id', {}, '_id'],
+			['keyID', {}, 'ID'],
 			[
 				'crate',
 				{
 					component: 'UITextarea',
-  		    placeholder: 'Valid JSON data or leave empty, data associated with this key',
+					placeholder: 'Valid JSON data or leave empty, data associated with this key',
 					label: 'Crate'
 				}
 			],
+			['origins', {
+				label: 'Origins',
+				placeholder: 'List of origins from which request enabled. Use with caution. No key needed for this kind of requests, but origin could be forged.',
+			}, 'listOfUrls'],
 			['expiredAt', { readonly: false }, 'expiredAt']
-  	]
+		]
 	);
 
 	module.exports = {
@@ -30,7 +34,7 @@ try {
 				data: ['record'],
 				rules: [{
 					root: true,
-					fields: ['title', 'key', 'crate', 'expiredAt']
+					fields: ['title', 'key', 'crate', 'origins', 'expiredAt']
 				}],
 				title: 'Creation of new key'
 			},
@@ -60,14 +64,14 @@ try {
 					root: true,
 				}],
 				title: 'Update of a key',
-				fields: ['_id', 'keyID', 'title', 'key', 'crate', 'expiredAt']
+				fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins', 'expiredAt']
 			},
 			listAndCount: {
 				method: 'GET',
 				isArray: false,
 				postFix: '/:actionName',
 				data: ['record', 'pager', 'sorter', 'filter', 'searcher', 'return'],
-				fields: ['_id', 'keyID', 'title', 'key', 'crate', 'expiredAt'],
+				fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins', 'expiredAt'],
 				rules: [{
 					auth: true,
 					role: ['admin']
@@ -81,7 +85,7 @@ try {
 				isArray: true,
 				postFix: '/:actionName',
 				data: ['record'],
-				fields: ['_id', 'title', 'key', 'crate', 'expiredAt'],
+				fields: ['_id', 'title', 'key', 'crate', 'origins', 'expiredAt'],
 				rules: [{
 					auth: true,
 					root: true
@@ -95,7 +99,7 @@ try {
 				rules: [{
 					auth: true,
 					root: true,
-					fields: ['_id', 'keyID', 'title', 'key', 'crate', 'expiredAt']
+					fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins', 'expiredAt']
 				}]
 			},
 			getRaw: {
@@ -106,7 +110,7 @@ try {
 				rules: [{
 					auth: true,
 					root: true,
-					fields: ['_id', 'keyID', 'title', 'key', 'crate', 'expiredAt']
+					fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins', 'expiredAt']
 				}]
 			},
 			delete: {
