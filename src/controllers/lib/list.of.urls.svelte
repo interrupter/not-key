@@ -3,7 +3,7 @@
   import {onMount} from 'svelte';
   export let value        = [];
   export let textVersion  = '';
-  export let readonly     = true;
+  export let readonly     = false;
 
   onMount(()=>{
     textVersion = value.join("\n");
