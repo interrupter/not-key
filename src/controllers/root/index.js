@@ -12,9 +12,10 @@ let manifest = {
 	menu:{
 		side: {
 			items: [{
+				id: 			'system.keys',
 				section: 'system',
 				title: 	'Ключи',
-				url: 	'/key'
+				url: 		'/key'
 			}]
 		}
 	}
