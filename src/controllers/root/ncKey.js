@@ -17,6 +17,8 @@ const LABELS = {
 Form.addComponent('UIListOfUrls', UIListOfUrls);
 
 class ncKey extends ncCRUD {
+	static MODULE_NAME = MODULE_NAME;
+	static MODEL_NAME = MODEL_NAME;
 	constructor(app, params) {
 		super(app, `${MODULE_NAME}.${MODEL_NAME}`);
 		this.setModuleName(MODULE_NAME.toLowerCase());

@@ -3,10 +3,7 @@ import ncKey from './ncKey.js';
 let manifest = {
 	router: {
 		manifest: [
-			{
-				paths: ['key\/([^\/]+)\/([^\/]+)', 'key\/([^\/]+)', 'key'],
-				controller: ncKey
-			},
+			ncKey.getRoutes()
 		]
 	},
 	menu:{
@@ -14,8 +11,8 @@ let manifest = {
 			items: [{
 				id: 			'system.keys',
 				section: 'system',
-				title: 	'Ключи',
-				url: 		'/key'
+				title: 		'Ключи',
+				url: 			'/key'
 			}]
 		}
 	}

@@ -14,8 +14,11 @@ const FIELDS = [
 ];
 
 exports.enrich = {
-	versioning: false,
-	increment: true
+	versioning: 	false,
+	increment: 		true,
+	incrementOptions:{
+		filter: [ 'ownerModel','owner' ]
+	}
 };
 
 exports.thisModelName = MODEL_NAME;
