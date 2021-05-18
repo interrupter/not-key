@@ -60,6 +60,10 @@ try {
               if (!(typeof req.body.key !== 'undefined' && req.body.key !== null && req.body.key.length > 10)) {
                 req.body.key = uuidv4();
               }
+
+              req.body.owner = req.user._id;
+              req.body.ownerModel = 'User';
+
               resolve();
             } catch (e) {
               reject(e);
@@ -75,7 +79,7 @@ try {
     _getRaw(req, res) {
       const App = notNode.Application;
       let id = req.params._id,
-        thisModel = App.getModel(MODEL_NAME);
+          thisModel = App.getModel(MODEL_NAME);
       thisModel.getOneRaw(id)
         .then((item) => {
           item = item.toObject();
