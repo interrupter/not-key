@@ -3,26 +3,7 @@ try {
   const notNode = require('not-node');
   const uuidv4 = require('uuid').v4;
   const origin = require('original');
-  const ERR_INVALID_KEY = 'Invalid key';
-  const ERR_EMPTY_REPORT_OR_TYPE = 'Empty report or type fields';
-  const ERR_EMPTY_KEY_NO_CONSUMERS = 'Key is empty, no consumers';
-  const ERR_EMPTY_KEY = 'Key is empty';
-  const ERR_NO_KEY = 'No key';
-  const ERR_NO_ORIGIN = 'No origin info in headers';
-  const ERR_INVALID_ORIGIN = 'Invalid origin of request';
-  const ERR_INVALID_KEY_OR_ORIGIN = 'Invalid key or origin of request';
-  const ERR_NO_COLLECTOR_MODEL = 'Collector model not exists';
-  const ERRS = [
-    ERR_INVALID_KEY,
-    ERR_EMPTY_REPORT_OR_TYPE,
-    ERR_EMPTY_KEY_NO_CONSUMERS,
-    ERR_EMPTY_KEY,
-    ERR_NO_KEY,
-    ERR_NO_ORIGIN,
-    ERR_INVALID_ORIGIN,
-    ERR_INVALID_KEY_OR_ORIGIN,
-    ERR_NO_COLLECTOR_MODEL
-  ];
+
 
   const
     UserActions = [],
@@ -136,55 +117,24 @@ try {
         });
     },
     async collect(req, res) {
-      const App = notNode.Application;
-      let Key = App.getModel('Key');
       try {
-        if (
-          typeof req.body.report !== 'undefined' && req.body.report !== null &&
-          typeof req.body.type !== 'undefined' && req.body.type !== null
-        ) {
-          let orgn = req.headers.origin?origin(req.headers.origin):false;
-          let key = await Key.findActiveByKeyOrOrigin(req.body.key, orgn);
-          if (!key) {
-            throw new Error(ERR_INVALID_KEY_OR_ORIGIN);
-          }
-          if (key.crate && key.crate.consumers) {
-            let list = [];
-            for (let t in key.crate.consumers) {
-              if (typeof t !== 'undefined') {
-                let model = App.getModel(t);
-                if (model) {
-                  let statMethod = model[key.crate.consumers[t]];
-                  list.push(statMethod(req.body.report, key, req.body.type));
-                } else {
-                  App.logger.error(new Error(ERR_NO_COLLECTOR_MODEL));
-                  App.logger.error(t);
-                }
-              }
-            }
-            let results = await Promise.all(list);
-            res.status(200).json({
-              status: 'ok',
-              results
-            });
-          } else {
-            throw new Error(ERR_EMPTY_KEY_NO_CONSUMERS);
-          }
-        } else {
-          throw new Error(ERR_EMPTY_REPORT_OR_TYPE);
-        }
+        let query = {
+          orgn:   req.headers.origin?origin(req.headers.origin):false,
+          inKey:  req.body.key,
+          report: req.body.report,
+          type:   req.body.type
+        };
+        const App = notNode.Application;
+        let Key = App.getLogic('Key');
+        let result = await Key.collect(query);
+        res.status(200).json(result);
       } catch (err) {
         App.logger.error(err);
-        if (ERRS.indexOf(err.message) > -1) {
-          res.status(404).json({
-            message: err.message
-          });
-        } else {
-          res.status(500).json({});
-        }
+        res.status(500).json({});
       }
     }
   };
+
   modMeta.extend(modMeta.Route, module.exports, AdminActions, MODEL_OPTIONS, '_');
   modMeta.extend(modMeta.Route, module.exports, UserActions, MODEL_OPTIONS);
 
