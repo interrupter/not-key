@@ -1,27 +1,22 @@
 const Log = require('not-log')(module, 'Key:Routes');
 
 try {
-	const initFromSchema = require('not-node').Fields.fromSchema;
-	const modelSchema = require('../models/key').thisSchema;
-	const FIELDS = initFromSchema(modelSchema,
+
+	const FIELDS =
 		[
 			['_id', {}, '_id'],
 			['keyID', {}, 'ID'],
 			[
 				'crate',
-				{
-					component: 'UITextarea',
-					placeholder: 'Valid JSON data or leave empty, data associated with this key',
-					label: 'Crate'
-				}
+				{},
+				'not-key//crate'
 			],
 			['origins', {
 				label: 'Origins',
 				placeholder: 'List of origins from which request enabled. Use with caution. No key needed for this kind of requests, but origin could be forged.',
 			}, 'listOfUrls'],
 			['expiredAt', { readonly: false }, 'expiredAt']
-		]
-	);
+		];
 
 	module.exports = {
 		model: 'key',

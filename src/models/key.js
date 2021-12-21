@@ -1,4 +1,3 @@
-const initFields = require('not-node').Fields.initFields;
 
 const MODEL_NAME = 'Key';
 const FIELDS = [
@@ -22,7 +21,7 @@ exports.enrich = {
 };
 
 exports.thisModelName = MODEL_NAME;
-exports.thisSchema = initFields(FIELDS, 'model');
+exports.FIELDS = FIELDS;
 
 exports.thisStatics = {
 	async check(key){
