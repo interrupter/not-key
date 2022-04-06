@@ -1,6 +1,6 @@
 {
 	"name": "not-key",
-	"version": "0.0.54",
+	"version": "0.0.55",
 	"description": "not-* family key management mod",
 	"main": "index.js",
 	"scripts": {
@@ -15,7 +15,7 @@
 		"url": "git+https://github.com/interrupter/not-key.git"
 	},
 	"keywords": [
-		"not-framework",
+		"not-bulma",
 		"not-node",
 		"key"
 	],

@@ -1,11 +1,12 @@
+const generatePaths = require('not-node').Common.generatePaths;
+
+const {MODULE_NAME} = require('./const');
+const content = [
+	'models', 'logics', 'locales',
+	'fields', 'controllers', 'routes'
+];
+
 module.exports = {
-	name: 'not-key',
-	paths:{
-		models:  __dirname + '/models',
-		logics:  __dirname + '/logics',
-		locales:  __dirname + '/locales',
-		fields:  __dirname + '/fields',
-		controllers:  __dirname + '/controllers',
-		routes:  __dirname + '/routes'
-	}
+	name: MODULE_NAME,
+	paths: generatePaths(content, __dirname)
 };

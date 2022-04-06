@@ -1,19 +1,19 @@
 
 const MODEL_NAME = 'Key';
 const FIELDS = [
-	['title', { default: ''}, 'title'],
-	'key',
-	['origins', {}, 'listOfUrls'],
-	['owner', {required: true}],
-	['ownerModel', {required: true}],
-	['crate', {}, 'requiredObject'],
-	'createdAt',
-	'expiredAt',
-	'updatedAt'
+	['title', { default: ''}, 'not-node//title'],
+	['key', 'not-key//key'],
+	['origins', 'not-key//listOfUrls'],
+	['owner', {required: true}, 'not-node//owner'],
+	['ownerModel', {required: true}, 'not-node//ownerModel'],
+	['crate', 'not-node//requiredObject'],
+	['createdAt', 'not-node//createdAt'],
+	['expiredAt', 'not-node//expiredAt'],
+	['updatedAt', 'not-node//updatedAt'],
 ];
 
 exports.enrich = {
-	versioning: 	false,
+	versioning: 	false,//?
 	increment: 		true,
 	incrementOptions:{
 		filter: [ 'ownerModel','owner' ]
