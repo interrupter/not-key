@@ -1,7 +1,8 @@
 import Validators from '../lib/validators.js';
 import UIListOfUrls from '../lib/list.of.urls.svelte';
 import {
-	Frame
+	Frame,
+	notFormUtils
 } from 'not-bulma';
 
 const {notCRUD} = Frame;
@@ -14,7 +15,7 @@ const LABELS = {
 	single: 'Ключ',
 };
 
-Form.addComponent('UIListOfUrls', UIListOfUrls);
+notFormUtils.addComponent('UIListOfUrls', UIListOfUrls);
 
 class ncKey extends notCRUD {
 	static MODULE_NAME = MODULE_NAME;
