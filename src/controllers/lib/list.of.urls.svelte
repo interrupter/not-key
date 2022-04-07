@@ -1,5 +1,7 @@
 <script>
-  import {UICommon} from 'not-bulma';
+  import {Elements} from 'not-bulma';
+  const UICommon = {Elements};
+  
   import {
     createEventDispatcher
   } from 'svelte';
