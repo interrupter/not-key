@@ -1,9 +1,9 @@
 const generatePaths = require('not-node').Common.generatePaths;
 
-const {MODULE_NAME} = require('./const');
+const {MODULE_NAME} = require('./const.js');
 const content = [
 	'models', 'logics', 'locales',
-	'fields', 'controllers', 'routes'
+	'fields','forms', 'controllers', 'routes'
 ];
 
 module.exports = {

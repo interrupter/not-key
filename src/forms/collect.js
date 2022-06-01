@@ -16,6 +16,9 @@ const FIELDS = [
 
 const FORM_NAME = `${MODULE_NAME}:CollectForm`;
 
+const validateReportType = require('./validators/validateReportType');
+const validateReportKey = require('./validators/validateReportKey');
+
 /**
 	*
 	**/
@@ -32,23 +35,20 @@ module.exports = class CollectForm extends Form{
 	**/
   extract(req){
     const data = {
-      origin: req.headers.origin ? origin(req.headers.origin) : false,
-      crate: {},
+      orgn: req.headers.origin ? origin(req.headers.origin) : false,
+      key: req.body.key,
       ip: ip = getIP(req),
       type: req.body.type,
       report: req.body.report,
-    };
-    if (typeof req.body.crate !== 'undefined' && req.body.crate !== null && req.body.crate.length > 1) {
-      data.crate = JSON.parse(req.body.crate);
-    }
-    if (typeof req.body.origins !== 'undefined' && req.body.origins !== null && req.body.origins.length > 1) {
-      data.origins = req.body.origins.split("\n");
-    }
+    };    
     return data;
   }
 
   getFormValidationRules(){
-    return [];
+    return [
+      validateReportType,
+      validateReportKey
+    ];
   }
 
 };

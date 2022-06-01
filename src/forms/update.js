@@ -5,6 +5,7 @@ const Form = require('not-node').Form;
 const	getIP = require('not-node').Auth.getIP;
 //form
 const FIELDS = [
+  ['_id', 'not-node//_id'],
   ['title', { default: ''}, 'not-node//title'],
   ['key', 'not-key//key'],
   ['origins', 'not-key//listOfUrls'],
@@ -12,12 +13,12 @@ const FIELDS = [
   ['expiredAt', 'not-node//expiredAt'],
 ];
 
-const FORM_NAME = `${MODULE_NAME}:CreateForm`;
+const FORM_NAME = `${MODULE_NAME}:UpdateForm`;
 
 /**
 	*
 	**/
-module.exports = class CreateForm extends Form{
+module.exports = class UpdateForm extends Form{
 
   constructor({app}){
     super({FIELDS, FORM_NAME, app});
@@ -30,6 +31,7 @@ module.exports = class CreateForm extends Form{
 	**/
   extract(req){
     const data = {
+      _id: req.params._id,
       title: req.data.title,
       expiredAt: req.data.expiredAt,
     };
