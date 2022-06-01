@@ -5,7 +5,7 @@ const Form = require('not-node').Form;
 const	getIP = require('not-node').Auth.getIP;
 //form
 const FIELDS = [
-  ['_id', 'not-node//_id'],
+  ['_id', 'not-node//objectId'],
   ['title', { default: ''}, 'not-node//title'],
   ['key', 'not-key//key'],
   ['origins', 'not-key//listOfUrls'],

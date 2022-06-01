@@ -10,8 +10,8 @@ const FIELDS = [
   ['origins', 'not-key//listOfUrls'],
   ['crate', 'not-node//requiredObject'],
   ['report', 'not-node//requiredObject'],
-  ['type', 'not-key//keyType'],
-  ['ip', 'not-user//ip']
+  ['type', 'not-key//reportType'],
+  ['ip', 'not-node//ip']
 ];
 
 const FORM_NAME = `${MODULE_NAME}:CollectForm`;
@@ -40,7 +40,7 @@ module.exports = class CollectForm extends Form{
       ip: ip = getIP(req),
       type: req.body.type,
       report: req.body.report,
-    };    
+    };
     return data;
   }
 
