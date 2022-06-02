@@ -4,7 +4,7 @@ const {
 
 const Log = require('not-log')(module, 'Key:Routes');
 const say = require('not-locale').sayForModule(MODULE_NAME);
-
+const {objHas} = require('not-node').Common;
 try {
 
   const notNode = require('not-node');
@@ -46,17 +46,17 @@ try {
 
 
   module.exports.before = async (req, res, next) => {
-    Log.log('before');
+    Log.debug('before');
     const name = req.notRouteData.actionName;
-    Log.log('action name', name);
+    Log.debug('action name', name);
     const FormValidator = notNode.Application.getForm(['not-key', name.replace('_', '')].join('//'));
     if (FormValidator) {
-      Log.log('FormValidator: ', FormValidator.FORM_NAME);
+      Log.debug('FormValidator: ', FormValidator.FORM_NAME);
       const result = await FormValidator.run(req, res, next);
-      Log.log('before route action');
+      Log.debug('before route action');
       return result;
     } else {
-      Log.log('no form validator');
+      Log.debug('no form validator');
       return {};
     }
   };
@@ -64,11 +64,7 @@ try {
 
   module.exports.after = (req, res, next, result) => {
     Log.log('after');
-    if (res.headersSent) {
-      return;
-    }
     const name = req.notRouteData.actionName;
-    Log.log('after hedaers not sent');
     if (result && objHas(result, '__redirect__')) {
       res.status(200).redirect(result.__redirect__);
     } else {

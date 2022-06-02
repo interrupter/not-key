@@ -1,5 +1,5 @@
 const notNode = require('not-node');
-
+const { isFunc} = notNode.Common;
 const {ERR_NO_COLLECTOR_MODEL} = require('../const.js');
 
 const NAME = 'Key';
@@ -25,14 +25,16 @@ class Key {
     input
   }) {
     const App = notNode.Application;
-    let Key = App.getModel('not-key//Key');
+    let keyDoc = await notNode.Application.getModel('not-key//Key').findActiveByKeyOrOrigin(input.key, input.origin);
     let list = [];
-    for (let consumerModelName in input.key.crate.consumers) {
+    for (let consumerModelName in keyDoc.crate.consumers) {
       if (typeof consumerModelName !== 'undefined') {
         let model = App.getModel(consumerModelName);
         if (model) {
-          let statMethod = model[input.key.crate.consumers[consumerModelName]];
-          list.push(statMethod(input.report, input.key, input.type));
+          let statMethod = model[keyDoc.crate.consumers[consumerModelName]];
+          if (isFunc(statMethod) ){
+            list.push(statMethod(input.report, keyDoc, input.type));
+          }
         } else {
           App.log.error(new notError(ERR_NO_COLLECTOR_MODEL, { modelName: t}));
         }

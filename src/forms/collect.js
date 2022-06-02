@@ -37,7 +37,7 @@ module.exports = class CollectForm extends Form{
     const data = {
       orgn: req.headers.origin ? origin(req.headers.origin) : false,
       key: req.body.key,
-      ip: ip = getIP(req),
+      ip:  getIP(req),
       type: req.body.type,
       report: req.body.report,
     };
