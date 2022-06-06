@@ -61,6 +61,23 @@ try {
 				title: 'Update of a key',
 				fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins', 'expiredAt']
 			},
+			listAll: {
+				method: 'GET',
+				isArray: true,
+				postFix: '/:actionName',
+				data: ['record', 'pager', 'sorter', 'filter', 'searcher', 'return'],
+				fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins', 'expiredAt'],
+				rules: [{
+					auth: true,
+					role: ['client']
+				}, {
+					auth: true,
+					role: ['admin']
+				}, {
+					auth: true,
+					root: true
+				}]
+			},
 			listAndCount: {
 				method: 'GET',
 				isArray: false,
@@ -68,6 +85,9 @@ try {
 				data: ['record', 'pager', 'sorter', 'filter', 'searcher', 'return'],
 				fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins', 'expiredAt'],
 				rules: [{
+					auth: true,
+					role: ['client']
+				},{
 					auth: true,
 					role: ['admin']
 				}, {

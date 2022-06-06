@@ -1,16 +1,20 @@
 const notNode = require('not-node');
 const { isFunc} = notNode.Common;
-const {ERR_NO_COLLECTOR_MODEL} = require('../const.js');
+const {ERR_NO_COLLECTOR_MODEL, MAX_KEY_COUNT,OWNER_MODEL} = require('../const.js');
 
 const NAME = 'Key';
 exports.thisLogicName = NAME;
 
-class Key {
+function getModel(){
+  const App = notNode.Application;
+  return App.getModel('not-key//Key');
+}
+
+class KeyLogic {
   static async update({
     key
   }) {
-    const App = notNode.Application;
-    let Key = App.getModel('not-key//Key');
+    const Key = getModel();
     let item = await thisModel.updateOne({
         _id: key._id,
       },
@@ -25,7 +29,7 @@ class Key {
     input
   }) {
     const App = notNode.Application;
-    let keyDoc = await notNode.Application.getModel('not-key//Key').findActiveByKeyOrOrigin(input.key, input.origin);
+    let keyDoc = await getModel().findActiveByKeyOrOrigin(input.key, input.origin);
     let list = [];
     for (let consumerModelName in keyDoc.crate.consumers) {
       if (typeof consumerModelName !== 'undefined') {
@@ -44,6 +48,11 @@ class Key {
     return results;
   }
 
+  static async listAll({ ownerId }){
+    const Key = getModel();
+    const results = await Key.listAndCount(0, MAX_KEY_COUNT, ['title', 'ascending'], { owner: ownerId, ownerModel: OWNER_MODEL });
+  }
+
 }
 
-exports[NAME] = Key;
+exports[NAME] = KeyLogic;

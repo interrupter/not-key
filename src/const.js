@@ -15,3 +15,7 @@ module.exports.ERR_INVALID_ORIGIN = 'invalid_origin_of_request';
 module.exports.ERR_INVALID_KEY_OR_ORIGIN = 'invalid_key_or_origin_of_request';
 
 module.exports.ERR_NO_COLLECTOR_MODEL = 'collector_model_not_exists';
+
+
+module.exports.MAX_KEY_COUNT = 1000;
+module.exports.OWNER_MODEL = 'User';

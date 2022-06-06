@@ -4,7 +4,9 @@ const {
 
 const Log = require('not-log')(module, 'Key:Routes');
 const say = require('not-locale').sayForModule(MODULE_NAME);
-const {objHas} = require('not-node').Common;
+const {
+  objHas
+} = require('not-node').Common;
 try {
 
   const notNode = require('not-node');
@@ -99,13 +101,26 @@ try {
     const App = notNode.Application;
     App.getLogic('not-key//Key');
     let Key = App.getLogic('Key');
-    return await Key.update({key: prepared});
+    return await Key.update({
+      key: prepared
+    });
   };
 
   module.exports.collect = async (req, res, next, prepared) => {
     const App = notNode.Application;
     let Key = App.getLogic('Key');
-    return await Key.collect({input: prepared});
+    return await Key.collect({
+      input: prepared
+    });
+  }
+
+
+  module.exports._listAll = module.exports.listAll = async (req, res, next, prepared) => {
+    const App = notNode.Application;
+    let Key = App.getLogic('Key');
+    return await Key.listAll({
+      ownerId: req.user._id
+    });
   }
 
   modMeta.extend(modMeta.Route, module.exports, AdminActions, MODEL_OPTIONS, '_');
