@@ -3,12 +3,12 @@
   const UICommon = {Elements};
   
   import {
-    createEventDispatcher
+    createEventDispatcher, onMount
   } from 'svelte';
   let dispatch = createEventDispatcher();
 
   export let inputStarted = false;
-  export let value        = '';
+  export let value        = [];
   export let placeholder   = 'List of urls';
   export let fieldname     = 'list-of-urls';
   export let rows = 10;
@@ -25,10 +25,17 @@
   $: invalid = ((valid===false) || (formLevelError));
   $: validationClasses = (valid===true || !inputStarted)?UICommon.CLASS_OK:UICommon.CLASS_ERR;
 
+  let listText = '';
+
+  onMount(()=>{
+    listText = value.join("\n");
+  });
+
   function onBlur(ev){
+    value = listText.split("\n");
     let data = {
       field: fieldname,
-      value: ev.currentTarget.value
+      value
     };
     inputStarted = true;
     dispatch('change', data);
@@ -36,9 +43,10 @@
   }
 
   function onInput(ev){
+    value = listText.split("\n");
     let data = {
       field: fieldname,
-      value: ev.currentTarget.value
+      value
     };
     inputStarted = true;
     dispatch('change', data);
@@ -50,7 +58,7 @@
   <textarea
     id="form-field-listOfUrls-{fieldname}"
     name={fieldname}
-    bind:value={value}
+    bind:value={listText}
     class="textarea {validationClasses}"
     {readonly}
     disabled={readonly}

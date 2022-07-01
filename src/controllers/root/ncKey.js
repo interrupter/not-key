@@ -1,8 +1,8 @@
 import Validators from '../lib/validators.js';
-import UIListOfUrls from '../lib/list.of.urls.svelte';
+
 import {
 	Frame,
-	notFormUtils
+
 } from 'not-bulma';
 
 const {notCRUD} = Frame;
@@ -15,15 +15,13 @@ const LABELS = {
 	single: 'Ключ',
 };
 
-notFormUtils.addComponent('UIListOfUrls', UIListOfUrls);
-
 class ncKey extends notCRUD {
 	static MODULE_NAME = MODULE_NAME;
 	static MODEL_NAME = MODEL_NAME;
 	constructor(app, params) {
 		super(app, `${MODULE_NAME}.${MODEL_NAME}`);
-		this.setModuleName(MODULE_NAME.toLowerCase());
-		this.setModelName(MODEL_NAME.toLowerCase());
+		this.setModuleName(MODULE_NAME);
+		this.setModelName(MODEL_NAME);
 		this.setOptions('names', LABELS);
 		this.setOptions('Validators', Validators);
 		this.setOptions('params', params);
@@ -37,10 +35,7 @@ class ncKey extends notCRUD {
 			sorter: {
 				id: -1
 			},
-			actions: [{
-				title: 'Создать',
-				action: this.goCreate.bind(this)
-			}],
+			actions: [],
 			showSearch: true,
 			idField: '_id',
 			fields: [{

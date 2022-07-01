@@ -15,7 +15,8 @@ try {
 				label: 'Origins',
 				placeholder: 'List of origins from which request enabled. Use with caution. No key needed for this kind of requests, but origin could be forged.',
 			}, 'listOfUrls'],
-			['expiredAt', { readonly: false }, 'expiredAt']
+			['expiredAt', { readonly: false }, 'expiredAt'],
+			['owner', {label:"not-node:field_owner_label", component: "UISelectUser"}, 'not-node//owner']
 		];
 
 	module.exports = {
@@ -59,23 +60,25 @@ try {
 					root: true,
 				}],
 				title: 'Update of a key',
-				fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins', 'expiredAt']
+				fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins',  'owner', 'expiredAt']
 			},
 			listAll: {
 				method: 'GET',
 				isArray: true,
 				postFix: '/:actionName',
 				data: ['record', 'pager', 'sorter', 'filter', 'searcher', 'return'],
-				fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins', 'expiredAt'],
 				rules: [{
 					auth: true,
-					role: ['client']
+					role: ['client'],
+					fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins', 'expiredAt'],
 				}, {
 					auth: true,
-					role: ['admin']
+					role: ['admin'],
+					fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins',  'owner','expiredAt'],
 				}, {
 					auth: true,
-					root: true
+					root: true,
+					fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins',  'owner','expiredAt'],
 				}]
 			},
 			listAndCount: {
@@ -83,27 +86,18 @@ try {
 				isArray: false,
 				postFix: '/:actionName',
 				data: ['record', 'pager', 'sorter', 'filter', 'searcher', 'return'],
-				fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins', 'expiredAt'],
 				rules: [{
 					auth: true,
-					role: ['client']
+					role: ['client'],
+					fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins', 'expiredAt'],
 				},{
 					auth: true,
-					role: ['admin']
+					role: ['admin'],
+					fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins','owner', 'expiredAt'],
 				}, {
 					auth: true,
-					root: true
-				}]
-			},
-			latest: {
-				method: 'GET',
-				isArray: true,
-				postFix: '/:actionName',
-				data: ['record'],
-				fields: ['_id', 'title', 'key', 'crate', 'origins', 'expiredAt'],
-				rules: [{
-					auth: true,
-					root: true
+					root: true,
+					fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins','owner', 'expiredAt'],
 				}]
 			},
 			get: {
@@ -114,7 +108,7 @@ try {
 				rules: [{
 					auth: true,
 					root: true,
-					fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins', 'expiredAt']
+					fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins', 'owner', 'expiredAt']
 				}]
 			},
 			getRaw: {
@@ -125,7 +119,7 @@ try {
 				rules: [{
 					auth: true,
 					root: true,
-					fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins', 'expiredAt']
+					fields: ['_id', 'keyID', 'title', 'key', 'crate', 'origins', 'owner', 'expiredAt']
 				}]
 			},
 			delete: {

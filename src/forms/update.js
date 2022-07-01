@@ -5,12 +5,10 @@ const Form = require('not-node').Form;
 const	getIP = require('not-node').Auth.getIP;
 //form
 const FIELDS = [
-  ['_id', 'not-node//objectId'],
-  ['title', { default: ''}, 'not-node//title'],
-  ['key', 'not-key//key'],
-  ['origins', 'not-key//listOfUrls'],
-  ['crate', 'not-node//requiredObject'],
-  ['expiredAt', 'not-node//expiredAt'],
+  ['targetId', { required: true }, 'not-node//objectId'],
+	['activeUser', 'not-node//requiredObject'],
+	['data', `${MODULE_NAME}//_data`],
+	['ip', 'not-node//ip']
 ];
 
 const FORM_NAME = `${MODULE_NAME}:UpdateForm`;
@@ -30,21 +28,28 @@ module.exports = class UpdateForm extends Form{
 	* @return {Object}        forma data
 	**/
   extract(req){
-    const data = {
-      _id: req.params._id,
-      title: req.data.title,
-      expiredAt: req.data.expiredAt,
+    const ip = getIP(req);
+    let data = this.extractData(req);
+    if(!req.user.isRoot() && !req.user.isAdmin()){
+			(typeof data.owner !== 'undefined') && delete data.owner;
+			(typeof data.ownerModel !== 'undefined') && delete data.ownerModel;
+		}
+    return {
+      targetId: req.params._id.toString(),
+      data,
+      activeUser: req.user,
+      ip
     };
-    if (typeof req.body.crate !== 'undefined' && req.body.crate !== null && req.body.crate.length > 1) {
-      data.crate = JSON.parse(req.body.crate);
-    } else {
-      data.crate = {};
-    }
-    if (typeof req.body.origins !== 'undefined' && req.body.origins !== null && req.body.origins.length > 1) {
-      data.origins = req.body.origins.split("\n");
-    } else {
-      data.origins = [];
-    }
+  }
+
+  extractData(req){
+    const data = {
+      title: req.body.title,
+      expiredAt: req.body.expiredAt,
+      crate: req.body.crate,
+      origins: req.body.origins,
+      owner: req.body.owner
+    };    
     if (!(typeof req.body.key !== 'undefined' && req.body.key !== null && req.body.key.length > 10)) {
       data.key = uuidv4();
     }else{

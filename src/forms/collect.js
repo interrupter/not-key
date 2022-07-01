@@ -7,8 +7,7 @@ const origin = require('original');
 //form
 const FIELDS = [
   ['key', 'not-key//key'],
-  ['origins', 'not-key//listOfUrls'],
-  ['crate', 'not-node//requiredObject'],
+  ['origin', 'not-key//origin'],
   ['report', 'not-node//requiredObject'],
   ['type', 'not-key//reportType'],
   ['ip', 'not-node//ip']
@@ -35,7 +34,7 @@ module.exports = class CollectForm extends Form{
 	**/
   extract(req){
     const data = {
-      orgn: req.headers.origin ? origin(req.headers.origin) : false,
+      origin: req.headers.origin ? origin(req.headers.origin) : false,
       key: req.body.key,
       ip:  getIP(req),
       type: req.body.type,

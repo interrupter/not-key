@@ -18,7 +18,12 @@ let manifest = {
 	}
 };
 
+import UIListOfUrls from '../lib/UIListOfURLs.svelte';
+import UIJSON from '../lib/UIJSON.svelte';
+const uis = {UIListOfUrls, UIJSON};
+
 export {
 	manifest,
+	uis,
 	ncKey
 };
