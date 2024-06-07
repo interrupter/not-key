@@ -2,13 +2,11 @@ const { MODULE_NAME } = require("../const");
 //DB related validation tools
 const Form = require("not-node").Form;
 //not-node
-const getIP = require("not-node").Common.getIP;
 const { v4: uuidv4 } = require("uuid");
 //form
 const FIELDS = [
-    ["activeUser", "not-node//requiredObject"],
+    ["identity", "not-node//identity"],
     ["data", `${MODULE_NAME}//_data`],
-    ["ip", "not-node//ip"],
 ];
 
 const FORM_NAME = `${MODULE_NAME}:CreateForm`;
@@ -23,20 +21,14 @@ module.exports = class CreateForm extends Form {
 
     /**
      * Extracts data
-     * @param {ExpressRequest} req expressjs request object
+     * @param {import('not-node/src/types').notNodeExpressRequest} req expressjs request object
      * @return {Object}        forma data
      **/
     extract(req) {
-        const ip = getIP(req);
-        let data = this.extractData(req);
-        if (!req.user.isRoot() && !req.user.isAdmin()) {
-            delete data.owner;
-            delete data.ownerModel;
-        }
+        const data = this.extractData(req);
         return {
+            ...this.extractRequestEnvs(req),
             data,
-            activeUser: req.user,
-            ip,
         };
     }
 
