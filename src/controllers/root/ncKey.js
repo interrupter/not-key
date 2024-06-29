@@ -2,8 +2,9 @@ import Validators from '../lib/validators.js';
 
 import {
 	Frame,
-
 } from 'not-bulma';
+
+const CRUDActionList from 'not-bulma/src/frame/crud/actions/list'
 
 const {notCRUD} = Frame;
 
@@ -63,24 +64,7 @@ class ncKey extends notCRUD {
 				title: 'Действия',
 				type: 'button',
 				preprocessor: (value) => {
-					return [{
-						action: this.goDetails.bind(this, value),
-						title: 'Подробнее',
-						size: 'small'
-					},
-					{
-						action: this.goUpdate.bind(this, value),
-						title: 'Изменить',
-						size: 'small'
-					},
-					{
-						action: this.goDelete.bind(this, value),
-						color: 'danger',
-						title: 'Удалить',
-						size: 'small',
-						style: 'outlined'
-					}
-					];
+					return CRUDActionList.createActionsButtons(this, value);
 				},
 			}]
 		});
