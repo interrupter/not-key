@@ -1,5 +1,8 @@
 const Log = require("not-log")(module, "Key:Routes");
-const { ACTION_DATA_TYPES } = require("not-node/src/manifest/const");
+const {
+    ACTION_DATA_TYPES,
+    ACTION_DATA_TYPES_VALUES,
+} = require("not-node/src/manifest/const");
 
 try {
     const FIELDS = [
@@ -89,7 +92,7 @@ try {
                 method: "GET",
                 isArray: true,
                 postFix: "/:actionName",
-                data: [...ACTION_DATA_TYPES],
+                data: [...ACTION_DATA_TYPES_VALUES],
                 rules: [
                     {
                         auth: true,
@@ -137,7 +140,7 @@ try {
                 method: "GET",
                 isArray: false,
                 postFix: "/:actionName",
-                data: [...ACTION_DATA_TYPES],
+                data: [...ACTION_DATA_TYPES_VALUES],
                 rules: [
                     {
                         auth: true,
