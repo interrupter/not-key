@@ -7,25 +7,44 @@
   } from 'svelte';
   let dispatch = createEventDispatcher();
 
-  export let inputStarted = false;
-  export let value        = [];
-  export let placeholder   = 'List of urls';
-  export let fieldname     = 'list-of-urls';
-  export let rows = 10;
-  export let required = true;
-  export let readonly = false;
-  export let valid = true;
-  export let validated = false;
-  export let errors = false;
-  export let formErrors = false;
-  export let formLevelError = false;
+  /**
+   * @typedef {Object} Props
+   * @property {boolean} [inputStarted]
+   * @property {any} [value]
+   * @property {string} [placeholder]
+   * @property {string} [fieldname]
+   * @property {number} [rows]
+   * @property {boolean} [required]
+   * @property {boolean} [readonly]
+   * @property {boolean} [valid]
+   * @property {boolean} [validated]
+   * @property {boolean} [errors]
+   * @property {boolean} [formErrors]
+   * @property {boolean} [formLevelError]
+   */
 
-  $: allErrors = [].concat(errors?errors:[], formErrors?formErrors:[]);
-  $: helper = allErrors?allErrors.join(', '): placeholder;
-  $: invalid = ((valid===false) || (formLevelError));
-  $: validationClasses = (valid===true || !inputStarted)?UICommon.CLASS_OK:UICommon.CLASS_ERR;
+  /** @type {Props} */
+  let {
+    inputStarted = $bindable(false),
+    value = $bindable([]),
+    placeholder = 'List of urls',
+    fieldname = 'list-of-urls',
+    rows = 10,
+    required = true,
+    readonly = false,
+    valid = true,
+    validated = false,
+    errors = false,
+    formErrors = false,
+    formLevelError = false
+  } = $props();
 
-  let listText = '';
+  let allErrors = $derived([].concat(errors?errors:[], formErrors?formErrors:[]));
+  let helper = $derived(allErrors?allErrors.join(', '): placeholder);
+  let invalid = ($derived((valid===false) || (formLevelError)));
+  let validationClasses = $derived((valid===true || !inputStarted)?UICommon.CLASS_OK:UICommon.CLASS_ERR);
+
+  let listText = $state('');
 
   onMount(()=>{
     listText = value.join("\n");
@@ -64,7 +83,7 @@
     disabled={readonly}
     invalid="{invalid}"
     required={required}
-    on:change={onBlur} on:input={onInput}
+    onchange={onBlur} oninput={onInput}
     {rows}
     placeholder="{placeholder}"
     aria-controls="input-field-helper-{fieldname}" aria-describedby="input-field-helper-{fieldname}"

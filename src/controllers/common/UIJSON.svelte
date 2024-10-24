@@ -1,30 +1,62 @@
 <script>
+  import { run } from 'svelte/legacy';
+
 
     import UICommon from 'not-bulma/src/elements/common.js';
     import ErrorsList from 'not-bulma/src/elements/various/ui.errors.list.svelte';
     import {createEventDispatcher, onMount} from 'svelte';
     let dispatch = createEventDispatcher();
   
-    export let inputStarted = false;
-    export let value = {};
-    export let placeholder = 'input some text here, please';
-    export let fieldname = 'textarea';
-    export let icon = false;
-    export let rows = 10;
-    export let required = true;
-    export let readonly = false;
-    export let disabled = false;
-    export let valid = true;
-    export let validated = false;
-    export let errors = false;
-    export let formErrors = false;
-    export let formLevelError = false;
+  /**
+   * @typedef {Object} Props
+   * @property {boolean} [inputStarted]
+   * @property {any} [value]
+   * @property {string} [placeholder]
+   * @property {string} [fieldname]
+   * @property {boolean} [icon]
+   * @property {number} [rows]
+   * @property {boolean} [required]
+   * @property {boolean} [readonly]
+   * @property {boolean} [disabled]
+   * @property {boolean} [valid]
+   * @property {boolean} [validated]
+   * @property {boolean} [errors]
+   * @property {boolean} [formErrors]
+   * @property {boolean} [formLevelError]
+   */
+
+  /** @type {Props} */
+  let {
+    inputStarted = $bindable(false),
+    value = $bindable({}),
+    placeholder = 'input some text here, please',
+    fieldname = 'textarea',
+    icon = false,
+    rows = 10,
+    required = true,
+    readonly = false,
+    disabled = false,
+    valid = $bindable(true),
+    validated = false,
+    errors = $bindable(false),
+    formErrors = false,
+    formLevelError = false
+  } = $props();
   
-    $: iconClasses = (icon? ' has-icons-left ':'') + ' has-icons-right ';
-    $: allErrors = [].concat(errors?errors:[], formErrors?formErrors:[]);
-    $: showErrors = (!(validated && valid) && (inputStarted));
-    $: invalid = ((valid===false) || (formLevelError));
-    $: validationClasses = (valid===true || !inputStarted)?UICommon.CLASS_OK:UICommon.CLASS_ERR;
+    let iconClasses = $derived((icon? ' has-icons-left ':'') + ' has-icons-right ');
+    let allErrors;
+  run(() => {
+    allErrors = [].concat(errors?errors:[], formErrors?formErrors:[]);
+  });
+    let showErrors;
+  run(() => {
+    showErrors = (!(validated && valid) && (inputStarted));
+  });
+    let invalid = ($derived((valid===false) || (formLevelError)));
+    let validationClasses;
+  run(() => {
+    validationClasses = (valid===true || !inputStarted)?UICommon.CLASS_OK:UICommon.CLASS_ERR;
+  });
   
     function onBlur(ev){
         try{
@@ -44,13 +76,13 @@
         }
     }
 
-    let editingValue = '';
+    let editingValue = $state('');
 
     onMount(()=>{
         editingValue = JSON.stringify(value, null, 4);
     });
   
-    $:readonlyValueStringified = JSON.stringify(value, null, 4);
+    let readonlyValueStringified = $derived(JSON.stringify(value, null, 4));
   
   </script>
   
@@ -63,7 +95,7 @@
       {invalid}
       {disabled}
       {required} {readonly}
-      on:blur={onBlur}
+      onblur={onBlur}
       class="textarea {validationClasses}"
       bind:value={editingValue}
       name="{fieldname}"
