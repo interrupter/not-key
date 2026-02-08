@@ -1,42 +1,30 @@
-const {
-  MODULE_NAME
-} = require('../const');
-const origin = require('original');
-  const notNode = require('not-node');
+const { MODULE_NAME } = require("../const");
 
-  const MODEL_NAME = 'Key';
+const notNode = require("not-node");
 
-  const {
-    before, after,
-    getLogic,
-    getModel,
-    Log
-  } = notNode.Bootstrap.notBootstrapRoute({
+const MODEL_NAME = "Key";
+
+const { before, after, getLogic, Log } = notNode.Bootstrap.notBootstrapRoute({
     target: module,
     MODULE_NAME,
     MODEL_NAME,
-    defaultAccessRule: true
-  });
-
+    defaultAccessRule: true,
+});
 
 try {
+    const KeyGenericRoute = notNode.Generic.GenericRoute({
+        getLogic,
+        before,
+        after,
+    });
 
-  const KeyGenericRoute = notNode.Generic.GenericRoute({
-    getLogic,
-    before, 
-    after
-  });
-  
-  class KeyRoute extends KeyGenericRoute{
-    
-    static async collect (req, res, next, prepared){
-      return await getLogic().collect(prepared);
+    class KeyRoute extends KeyGenericRoute {
+        static async collect(req, res, next, prepared) {
+            return await getLogic().collect(prepared);
+        }
     }
 
-  }
-  
-  module.exports = KeyRoute;
-
+    module.exports = KeyRoute;
 } catch (e) {
-  Log.error(e);
+    Log.error(e);
 }

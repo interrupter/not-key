@@ -11,7 +11,7 @@ let manifest = {
                     id: "system.keys",
                     section: "system",
                     title: "Ключи",
-                    url: "/key",
+                    href: "/key",
                 },
             ],
         },
